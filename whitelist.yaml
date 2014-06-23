@@ -1,9 +1,0 @@
-#YAML
- - ls
- - cat
- - chown
- - chmod
- - echo
- - whoami
- - print
- - exec
