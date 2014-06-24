@@ -33,6 +33,8 @@ to do session based alteration of policy:
 
 Any alteration of session policy results in logging.
 
-To access the ssh shell:
+To access the policy driven ssh shell:
         
         ssh.shell
+
+
