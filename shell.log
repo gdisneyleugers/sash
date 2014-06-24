@@ -1,8 +1,1 @@
-Shell Started @ Mon Jun 23 16:43:38 2014 By: gregorydisney
-Error: sh: ssh: command not found @ Mon Jun 23 16:43:38 2014 By: gregorydisney
-blacklist cmd: bash @ Mon Jun 23 16:43:41 2014 By: gregorydisney
-Shell Started @ Mon Jun 23 16:44:43 2014 By: gregorydisney
-Error: sh: list: command not found @ Mon Jun 23 16:44:43 2014 By: gregorydisney
-Error: whitelist @ Mon Jun 23 16:44:46 2014 By: gregorydisney
-Error: sh: list: command not found @ Mon Jun 23 16:45:10 2014 By: gregorydisney
-blacklist cmd: bash @ Mon Jun 23 16:45:18 2014 By: gregorydisney
+#SASH LOG#
