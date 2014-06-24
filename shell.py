@@ -1,5 +1,6 @@
 #!/bin/env python
 __author__ = 'gregorydisney'
+__name__ = '__main__'
 import os
 import time
 import readline
@@ -21,6 +22,7 @@ class systemCMD:
     cmdcnf = config(file('cmd.yaml', 'r'))
     cmdlist = ''.join(cmdcnf)
     level = 0
+    risk = level
     rip = 3
     tab = readline.parse_and_bind('tab: complete')
     readline.insert_text(cmdlist)
@@ -31,8 +33,11 @@ class systemCMD:
             print("Insider threat detected")
             logger.write("Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + '\n')
             quit()
+
         cmd = raw_input('Secure-Shell=> ')
         a = "sh: " + cmd + ": " + "command not found"
+        if a:
+            import shell
         tab = readline.parse_and_bind('tab: complete')
         readline.insert_text(cmdlist)
         ecmd = cmd + ':'
@@ -93,30 +98,45 @@ class systemCMD:
             host = raw_input("Host: ")
             SSH_PORT = input("Port: ")
             usr = raw_input("User: ")
+            if not usr:
+                user = getpass.getuser()
             pwd = getpass.getpass("Password: ")
             client.load_system_host_keys()
             print "Connecting to " + host
-            logger.write("SSH Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + " as " + usr + "\n")
+            logger.write("SSH Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
             while True:
                 level = 0
                 rip = 3
+                level = risk
                 timer = time.asctime()
-                cc = client.connect(host, port=SSH_PORT, username=usr, password=pwd)
+                try:
+                    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                    cc = client.connect(host, port=SSH_PORT, username=usr, password=pwd)
+                except paramiko.ssh_exception.AuthenticationException:
+                    print "Auth Error"
+                    logger.write("Auth Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+                    import shell
+                except paramiko.ssh_exception.SSHException:
+                    print "Protocol Error"
+                    logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+                    import shell
+                except paramiko.transport:
+                    print "General Error"
+                    logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+                    import shell
                 cmd = raw_input("Secure-SSH-Shell=> ")
                 if level == rip:
                     print("Insider threat detected")
-                    logger.write("Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + '\n')
-                    quit()
+                    logger.write("Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + '\n')
+                    import shell
                     break
                 for i, elem in enumerate(blcnf):
                     if cmd in elem:
                         print("Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
                         logger.write("ssh blacklist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as "+ usr + "@" + host + '\n')
                         level = 3
-                        quit()
-                        break
-                        quit()
                         logger.close()
+                        import shell
                 for i, elem in enumerate(whcnf):
                     if cmd in elem:
                         print("Allowed but logged: " + elem + "\n" + timer + " By " + getpass.getuser() + " as " + usr + "@" + host + '\n')
@@ -142,6 +162,7 @@ class systemCMD:
         if cmd == 'user.name':
             print getpass.getuser()
         if cmd == 'alter.list':
+            readline.add_history(cmd)
             while True:
                 a = raw_input("whitelist or blacklist: ")
                 if a == 'blacklist':
@@ -157,6 +178,7 @@ class systemCMD:
                 break
                 shell
         if cmd == 'policy.list':
+            readline.add_history(cmd)
             print "Whitelist:", whcnf
             print "Blacklist:", blcnf
         if cmd == ' ':
@@ -164,10 +186,19 @@ class systemCMD:
         if cmd == a:
             print "\n"
         elif cmd:
-            error = sys(cmd)
-            errorseq = error > 0
-            if a:
+            try:
+                error = sys(cmd)
+                errorseq = error > 0
+            except a:
+                print "\n"
+                import shell
+                print "\n"
+            except OSError:
+                print "\n"
+                import shell
                 print "\n"
             if errorseq:
-                print "Error Logged"
-                logger.write("Error: " + a + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                    print "Error Logged"
+                    logger.write("Error: " + a + " @ " + timer + " By: " + getpass.getuser() + '\n')
+    if __name__ == '__main__':
+       import shell
