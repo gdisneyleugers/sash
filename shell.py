@@ -17,7 +17,9 @@ logger = file('shell.log', 'a')
 logger.write("Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + "\n")
 
 
-class systemCMD:
+class SystemCmd:
+    def __init__(self):
+        __init__ = __name__
     blcnf = config(file('blacklist.yaml', 'r'))
     whcnf = config(file('whitelist.yaml', 'r'))
     cmdcnf = config(file('cmd.yaml', 'r'))
@@ -67,7 +69,7 @@ class systemCMD:
         for i, elem in enumerate(whcnf):
             if cmd in elem:
                 print("Allowed but logged: " + elem + "\n" + timer + " By: " + getpass.getuser() + '\n')
-                logger.write("whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                logger.write("Whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
                 risk = level + 1
                 level = risk
         if cmd == 'chdir':
@@ -86,7 +88,7 @@ class systemCMD:
         if cmd == 'exit':
             print("Exiting\n")
             quit()
-            logger.write("whitelist cmd: " + cmd + " @ " + timer + " By: " + getpass.getuser() + '\n')
+            logger.write("Whitelist cmd: " + cmd + " @ " + timer + " By: " + getpass.getuser() + '\n')
             logger.close()
         if cmd == 'risk':
             while True:
@@ -161,14 +163,14 @@ class systemCMD:
                 for i, elem in enumerate(blcnf):
                     if cmd in elem:
                         print("Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
-                        logger.write("ssh blacklist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as "+ usr + "@" + host + '\n')
+                        logger.write("SSH blacklist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as "+ usr + "@" + host + '\n')
                         level = 3
                         logger.close()
                         import shell
                 for i, elem in enumerate(whcnf):
                     if cmd in elem:
                         print("Allowed but logged: " + elem + "\n" + timer + " By " + getpass.getuser() + " as " + usr + "@" + host + '\n')
-                        logger.write("ssh whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + '\n')
+                        logger.write("SSH whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + '\n')
                         risk = level + 1
                         level = risk
                 if cmd == 'exit':
