@@ -10,8 +10,6 @@ import paramiko
 import yaml
 from yaml import load as config
 
-import shell
-
 
 logger = file('shell.log', 'a')
 logger.write("Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + "\n")
@@ -100,14 +98,23 @@ class systemCMD:
             print "Connecting to " + host
             logger.write("SSH Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + " as " + usr + "\n")
             while True:
+                level = 0
+                rip = 3
                 timer = time.asctime()
                 cc = client.connect(host, port=SSH_PORT, username=usr, password=pwd)
                 cmd = raw_input("Secure-SSH-Shell=> ")
+                if level == rip:
+                    print("Insider threat detected")
+                    logger.write("Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                    quit()
+                    break
                 for i, elem in enumerate(blcnf):
                     if cmd in elem:
                         print("Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
                         logger.write("ssh blacklist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as "+ usr + "@" + host + '\n')
                         level = 3
+                        quit()
+                        break
                         quit()
                         logger.close()
                 for i, elem in enumerate(whcnf):
@@ -130,11 +137,11 @@ class systemCMD:
                 client.close()
         if cmd in 'print':
             print(cmd)
-        if cmd == 'time':
+        if cmd == 'time.now':
             print(timer)
-        if cmd == 'user':
+        if cmd == 'user.name':
             print getpass.getuser()
-        if cmd == 'alterlist':
+        if cmd == 'alter.list':
             while True:
                 a = raw_input("whitelist or blacklist: ")
                 if a == 'blacklist':
@@ -149,14 +156,14 @@ class systemCMD:
                     whcnf = b
                 break
                 shell
-        if cmd == 'list':
+        if cmd == 'policy.list':
             print "Whitelist:", whcnf
             print "Blacklist:", blcnf
-        if cmd == '\ ':
+        if cmd == ' ':
             print "Blank command detected"
         if cmd == a:
             print "\n"
-        else:
+        elif cmd:
             error = sys(cmd)
             errorseq = error > 0
             if a:

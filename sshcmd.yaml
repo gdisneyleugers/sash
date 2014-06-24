@@ -1,1 +1,527 @@
-#YAML
+#YAML[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[risk, []]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[ls, [!!python/unicode 'anaconda-ks.cfg
+
+      ', !!python/unicode 'CloudAuth.rb
+
+      ', !!python/unicode 'CloudConnect.rb
+
+      ', !!python/unicode 'CloudEncrypt.rb
+
+      ', !!python/unicode 'CloudProtect.rb
+
+      ', !!python/unicode 'CloudProxy.rb
+
+      ', !!python/unicode 'CloudRoute.rb
+
+      ', !!python/unicode 'CloudStore.rb
+
+      ', !!python/unicode 'epel-release-6-8.noarch.rpm
+
+      ', !!python/unicode 'install.log
+
+      ', !!python/unicode 'install.log.syslog
+
+      ', !!python/unicode 'jruby
+
+      ', !!python/unicode 'jruby-complete-1.7.12.jar
+
+      ', !!python/unicode 'keystonerc
+
+      ', !!python/unicode 'libquark.jar
+
+      ', !!python/unicode 'nova_htcc.py
+
+      ', !!python/unicode 'openstack-restart
+
+      ']]
+[risk.set, []]

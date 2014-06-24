@@ -1,3 +1,2 @@
 __author__ = 'gregorydisney'
-while True:
-    import shell
+__import__('pkg_resources').declare_namespace(__name__)
