@@ -1,0 +1,8 @@
+#CMDLIST
+ - ssh.shell
+ - threshold
+ - threshold.set
+ - risk
+ - risk.reset
+ - alter.list
+ - policy.lis
