@@ -6,7 +6,7 @@ Secure again Shell
 Policy driven shell with auditable logs:
 
     whitelist: 
-            This policy is the threshold policy, the default threshold is 3 before disconnect. 
+        This policy is the threshold policy, the default threshold is 3 before disconnect. 
     blacklist: 
         This policy is the blacklist policy, the default threshold is 0 before disconnect.
     to do session based alteration of policy:
