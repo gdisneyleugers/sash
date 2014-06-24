@@ -3,6 +3,10 @@ sash
 
 Secure again Shell
 
+Installation: 
+    
+    pip install pyYAML paramiko
+
 Policy driven shell with auditable logs:
 
     whitelist: 
