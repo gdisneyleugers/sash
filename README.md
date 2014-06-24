@@ -20,4 +20,5 @@ Policy driven shell with auditable logs:
 Any alteration of session policy results in logging.
 
 To access the ssh shell:
-  ssh.shell
+        
+        ssh.shell
