@@ -29,17 +29,34 @@ class systemCMD:
     readline.insert_text(cmdlist)
     readline.set_startup_hook()
     while True:
-        timer = time.asctime()
+        try:
+            timer = time.asctime()
+        except KeyboardInterrupt:
+            print "Exiting\n"
+            quit()
         if level == rip:
             print("Insider threat detected")
             logger.write("Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + '\n')
             quit()
-
-        cmd = raw_input('Secure-Shell=> ')
-        a = "sh: " + cmd + ": " + "command not found"
-        tab = readline.parse_and_bind('tab: complete')
-        readline.insert_text(cmdlist)
-        ecmd = cmd + ':'
+        try:
+            cmd = raw_input('Secure-Shell=> ')
+        except KeyboardInterrupt:
+                print "\n"
+                print "Exiting \n"
+                quit()
+        except SystemError:
+                print "Exit"
+        except SystemExit:
+                print "Exit"
+        try:
+            a = "sh: " + cmd + ": " + "command not found"
+            tab = readline.parse_and_bind('tab: complete')
+            readline.insert_text(cmdlist)
+            if cmd == '':
+                print "Error"
+        except NameError:
+            print("Error")
+            import shell
         for i, elem in enumerate(blcnf):
             if cmd in elem:
                 print("Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser())
@@ -158,9 +175,13 @@ class systemCMD:
                     print("Exiting\n")
                     logger.write("Exiting: " + cmd + " @ " + timer + " By: " + getpass.getuser() + '\n')
                     break
-                stdin, stdout, stderr = client.exec_command(cmd)
-                a = stdout.readlines()
-                print ''.join(a)
+                try:
+                    stdin, stdout, stderr = client.exec_command(cmd)
+                    a = stdout.readlines()
+                    print ''.join(a)
+                except AttributeError:
+                    print "Attribute Error"
+                    import shell
                 with open('sshcmd.yaml', 'a') as outfile:
                     combo = [cmd, a]
                     outfile.write(yaml.dump(combo, default_flow_style=True))
@@ -209,6 +230,15 @@ class systemCMD:
                 print "\n"
                 import shell
                 print "\n"
+            except SystemError:
+                print "Unknown Error"
+                import shell
+            except (KeyboardInterrupt, SystemExit):
+                print "exiting \n"
+                quit()
+            except systemCMD:
+                print "Unknown error"
+                import shell
             if errorseq:
                     print "Error Logged"
                     logger.write("Error: " + a + " @ " + timer + " By: " + getpass.getuser() + '\n')
