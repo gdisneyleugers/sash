@@ -5,6 +5,7 @@ import os
 import time
 import readline
 import getpass
+import socket
 from os import system as sys
 
 import paramiko
@@ -36,8 +37,6 @@ class systemCMD:
 
         cmd = raw_input('Secure-Shell=> ')
         a = "sh: " + cmd + ": " + "command not found"
-        if a:
-            import shell
         tab = readline.parse_and_bind('tab: complete')
         readline.insert_text(cmdlist)
         ecmd = cmd + ':'
@@ -55,8 +54,15 @@ class systemCMD:
                 risk = level + 1
                 level = risk
         if cmd == 'chdir':
-            g = raw_input("Dir: ")
-            os.chdir(g)
+            try:
+                g = raw_input("Dir: ")
+                os.chdir(g)
+            except a:
+                print "Parse issue"
+                import shell
+            except OSError:
+                print "Dir Error"
+                import shell
         if cmd in 'cd':
             g = raw_input("Dir: ")
             os.chdir(g)
@@ -69,7 +75,7 @@ class systemCMD:
             while True:
                 print "Risk: ", level, "\n"
                 break
-                shell
+                import shell
         if cmd == 'risk.reset':
             while True:
                 print "Reseting Risk: "
@@ -78,11 +84,12 @@ class systemCMD:
                 print "New Risk: ", level, "\n"
                 logger.write("Risk reset: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
                 break
-                shell
+                import shell
         if cmd == 'threshold':
             while True:
                 print "Threshold: ", rip, "\n"
                 break
+                import shell
         if cmd == 'threshold.set':
             while True:
                 th = raw_input("Threshold: ")
@@ -92,7 +99,7 @@ class systemCMD:
                 print("Reloading shell")
                 logger.write("Threshold set: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
                 break
-                shell
+                import shell
         if cmd == 'ssh.shell':
             client = paramiko.SSHClient()
             host = raw_input("Host: ")
@@ -123,6 +130,10 @@ class systemCMD:
                 except paramiko.transport:
                     print "General Error"
                     logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+                    import shell
+                except socket.error:
+                    print "Socket Error"
+                    logger.write("Socket Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
                     import shell
                 cmd = raw_input("Secure-SSH-Shell=> ")
                 if level == rip:
@@ -181,6 +192,7 @@ class systemCMD:
             readline.add_history(cmd)
             print "Whitelist:", whcnf
             print "Blacklist:", blcnf
+            import shell
         if cmd == ' ':
             print "Blank command detected"
         if cmd == a:
