@@ -1,7 +1,9 @@
 sash
 ====
 
-Secure again Shell
+Secure again Shell:
+
+Policy driven shell with auditable logs.
 
 Installation: 
     
@@ -10,7 +12,9 @@ Installation:
 To run:
 
     python shell.py
-Policy driven shell with auditable logs.
+
+
+
 whitelist: 
 
         This policy is the threshold policy, the default threshold is 3 before disconnect. 
