@@ -93,7 +93,7 @@ class systemCMD:
             host = raw_input("Host: ")
             SSH_PORT = input("Port: ")
             usr = raw_input("User: ")
-            pwd = raw_input("Pasword: ")
+            pwd = getpass.getpass("Password: ")
             client.load_system_host_keys()
             print "Connecting to " + host
             logger.write("SSH Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + " as " + usr + "\n")
