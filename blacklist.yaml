@@ -1,0 +1,24 @@
+#BLACKLIST
+ - sudo
+ - su
+ - su -l root
+ - bash
+ - dash
+ - sh
+ - ncat
+ - nmap
+ - sudo
+ - su
+ - vi
+ - vim
+ - '&&'
+ - '&'
+ - ';'
+ - '|'
+ - '('
+ - ')'
+ - '$'
+ - ':'
+ - ';;'
+ - '()'
+ - '$()'

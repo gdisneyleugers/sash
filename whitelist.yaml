@@ -1,0 +1,7 @@
+#WHITELIST
+ - yum
+ - ssh
+ - ls
+ - ln
+ - dd
+ - cat
