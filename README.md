@@ -6,7 +6,8 @@ Secure again Shell
 Installation: 
     
     pip install pyYAML paramiko
-
+To run:
+    python shell.py
 Policy driven shell with auditable logs:
 
     whitelist: 
