@@ -20,6 +20,7 @@ logger.write("Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuse
 class SystemCmd:
     def __init__(self):
         __init__ = __name__
+
     blcnf = config(file('blacklist.yaml', 'r'))
     whcnf = config(file('whitelist.yaml', 'r'))
     cmdcnf = config(file('cmd.yaml', 'r'))
@@ -27,6 +28,7 @@ class SystemCmd:
     level = 0
     risk = level
     rip = 3
+    srisk = rip
     tab = readline.parse_and_bind('tab: complete')
     readline.insert_text(cmdlist)
     readline.set_startup_hook()
@@ -37,28 +39,34 @@ class SystemCmd:
             print "Exiting\n"
             quit()
         if level == rip:
-            print("Insider threat detected")
-            logger.write("Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + '\n')
+            print "\n"
+            print("Warning: Whitelist policy invalidating session\n")
+            logger.write("Whitelist policy invalidating session: " + " @ " + timer + " By: " + getpass.getuser() + '\n')
             quit()
         try:
             cmd = raw_input('Secure-Shell=> ')
         except KeyboardInterrupt:
-                print "\n"
-                print "Exiting \n"
-                quit()
+            print "\n"
+            print "Exiting \n"
+            quit()
         except SystemError:
-                print "Exit"
+            print "Exit"
         except SystemExit:
-                print "Exit"
+            print "Exit"
+        except a:
+            print "Recovering from error"
+            import shell
         try:
             a = "sh: " + cmd + ": " + "command not found"
             tab = readline.parse_and_bind('tab: complete')
             readline.insert_text(cmdlist)
             if cmd == '':
-                print "Error"
+                print "Error: blank command"
+                import shell
         except NameError:
-            print("Error")
-            import shell
+            while True:
+                print("Error reloading")
+                import shell
         for i, elem in enumerate(blcnf):
             if cmd in elem:
                 print("Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser())
@@ -67,11 +75,19 @@ class SystemCmd:
                 quit()
                 logger.close()
         for i, elem in enumerate(whcnf):
-            if cmd in elem:
+            if cmd == elem:
                 print("Allowed but logged: " + elem + "\n" + timer + " By: " + getpass.getuser() + '\n')
                 logger.write("Whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
                 risk = level + 1
+                srisk = (rip - risk)
+                print("Warning: "
+                "{0} commands left before whitelist policy invalidates session".format(str(srisk))
+                )
+                print("Warning: "
+                    "Risk has evalated to {0} ".format(str(risk))
+                )
                 level = risk
+                srisk = rip
         if cmd == 'chdir':
             try:
                 g = raw_input("Dir: ")
@@ -83,8 +99,15 @@ class SystemCmd:
                 print "Dir Error"
                 import shell
         if cmd in 'cd':
-            g = raw_input("Dir: ")
-            os.chdir(g)
+            try:
+                g = raw_input("Dir: ")
+                os.chdir(g)
+            except a:
+                print "Parse issue"
+                import shell
+            except OSError:
+                print "Dir Error"
+                import shell
         if cmd == 'exit':
             print("Exiting\n")
             quit()
@@ -129,7 +152,8 @@ class SystemCmd:
             pwd = getpass.getpass("Password: ")
             client.load_system_host_keys()
             print "Connecting to " + host
-            logger.write("SSH Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
+            logger.write(
+                "SSH Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
             while True:
                 level = 0
                 rip = 3
@@ -144,35 +168,52 @@ class SystemCmd:
                     import shell
                 except paramiko.ssh_exception.SSHException:
                     print "Protocol Error"
-                    logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+                    logger.write(
+                        "Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
                     import shell
                 except paramiko.transport:
                     print "General Error"
-                    logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+                    logger.write(
+                        "Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
                     import shell
                 except socket.error:
                     print "Socket Error"
-                    logger.write("Socket Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+                    logger.write(
+                        "Socket Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
                     import shell
                 cmd = raw_input("Secure-SSH-Shell=> ")
                 if level == rip:
                     print("Insider threat detected")
-                    logger.write("Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + '\n')
+                    logger.write(
+                        "Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + '\n')
                     import shell
+
                     break
                 for i, elem in enumerate(blcnf):
                     if cmd in elem:
-                        print("Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
-                        logger.write("SSH blacklist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as "+ usr + "@" + host + '\n')
+                        print(
+                            "Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
+                        logger.write(
+                            "SSH blacklist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + '\n')
                         level = 3
                         logger.close()
                         import shell
                 for i, elem in enumerate(whcnf):
                     if cmd in elem:
-                        print("Allowed but logged: " + elem + "\n" + timer + " By " + getpass.getuser() + " as " + usr + "@" + host + '\n')
-                        logger.write("SSH whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + '\n')
-                        risk = level + 1
-                        level = risk
+                        print(
+                            "Allowed but logged: " + elem + "\n" + timer + " By " + getpass.getuser() + " as " + usr + "@" + host + '\n')
+                        logger.write(
+                            "SSH whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + " as " + usr + "@" + host + '\n')
+                    risk = level + 1
+                    srisk = (rip - risk)
+                    print("Warning: "
+                    "{0} commands left before whitelist policy invalidates session".format(str(srisk))
+                    )
+                    print("Warning: "
+                    "Risk has evalated to {0} ".format(str(risk))
+                    )
+                level = risk
+                srisk = rip
                 if cmd == 'exit':
                     print("Exiting\n")
                     logger.write("Exiting: " + cmd + " @ " + timer + " By: " + getpass.getuser() + '\n')
@@ -216,10 +257,13 @@ class SystemCmd:
             print "Whitelist:", whcnf
             print "Blacklist:", blcnf
             import shell
-        if cmd == ' ':
+        if cmd == '':
             print "Blank command detected"
-        if cmd == a:
+        if cmd in a:
             print "\n"
+        if cmd in "sh:":
+            print "Recovering from error"
+            import shell
         elif cmd:
             try:
                 error = sys(cmd)
@@ -227,10 +271,12 @@ class SystemCmd:
             except a:
                 print "\n"
                 import shell
+
                 print "\n"
             except OSError:
                 print "\n"
                 import shell
+
                 print "\n"
             except SystemError:
                 print "Unknown Error"
@@ -242,7 +288,7 @@ class SystemCmd:
                 print "Unknown error"
                 import shell
             if errorseq:
-                    print "Error Logged"
-                    logger.write("Error: " + a + " @ " + timer + " By: " + getpass.getuser() + '\n')
-    if __name__ == '__main__':
-       import shell
+                print "Error Logged"
+                logger.write("Error: " + a + " @ " + timer + " By: " + getpass.getuser() + '\n')
+    if __name__ == __init__():
+        import shell
