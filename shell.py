@@ -7,7 +7,7 @@ import readline
 import getpass
 import socket
 from os import system as sys
-
+from subprocess import call
 import paramiko
 import yaml
 from yaml import load as config
@@ -30,7 +30,8 @@ class SystemCmd:
     rip = 3
     srisk = rip
     tab = readline.parse_and_bind('tab: complete')
-    readline.insert_text(cmdlist)
+    readline.get_line_buffer()
+    a = readline.insert_text(cmdlist)
     readline.set_startup_hook()
     while True:
         try:
@@ -45,6 +46,9 @@ class SystemCmd:
             quit()
         try:
             cmd = raw_input('Secure-Shell=> ')
+            a = "sh: " + cmd + ": " + "command not found"
+            if tab:
+                print(cmdcnf)
         except KeyboardInterrupt:
             print "\n"
             print "Exiting \n"
@@ -57,11 +61,11 @@ class SystemCmd:
             print "Recovering from error"
             import shell
         try:
-            a = "sh: " + cmd + ": " + "command not found"
             tab = readline.parse_and_bind('tab: complete')
             readline.insert_text(cmdlist)
             if cmd == '':
                 print "Error: blank command"
+                level = 0
                 import shell
         except NameError:
             while True:
@@ -75,11 +79,11 @@ class SystemCmd:
                 quit()
                 logger.close()
         for i, elem in enumerate(whcnf):
-            if cmd == elem:
+            if cmd in elem:
                 print("Allowed but logged: " + elem + "\n" + timer + " By: " + getpass.getuser() + '\n')
                 logger.write("Whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
                 risk = level + 1
-                srisk = (rip - risk)
+                srisk = (int(rip) - int(risk))
                 print("Warning: "
                 "{0} commands left before whitelist policy invalidates session".format(str(srisk))
                 )
@@ -88,9 +92,14 @@ class SystemCmd:
                 )
                 level = risk
                 srisk = rip
+                if risk == rip:
+                    print "Policy threshold met"
+                    quit()
         if cmd == 'chdir':
             try:
                 g = raw_input("Dir: ")
+                def chdir(self, cmd):
+                    call("chdir", shell=True)
                 os.chdir(g)
             except a:
                 print "Parse issue"
@@ -143,13 +152,24 @@ class SystemCmd:
                 break
                 import shell
         if cmd == 'ssh.shell':
-            client = paramiko.SSHClient()
-            host = raw_input("Host: ")
-            SSH_PORT = input("Port: ")
-            usr = raw_input("User: ")
+            try:
+                client = paramiko.SSHClient()
+                host = raw_input("Host: ")
+                SSH_PORT = input("Port: ")
+                usr = raw_input("User: ")
+            except (KeyboardInterrupt, SystemExit):
+                print "exiting \n"
+                quit()
+            except SyntaxError:
+                print "Error"
+                import shell
             if not usr:
                 user = getpass.getuser()
+            if usr == '':
+                user = getpass.getuser()
             pwd = getpass.getpass("Password: ")
+            if not pwd:
+                pwd = getpass.getpass
             client.load_system_host_keys()
             print "Connecting to " + host
             logger.write(
@@ -181,9 +201,15 @@ class SystemCmd:
                     logger.write(
                         "Socket Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
                     import shell
+                except KeyboardInterrupt:
+                    print "Exiting\n"
+                    import shell
+                except EOFError:
+                    print "Exiting\n"
+                    quit()
                 cmd = raw_input("Secure-SSH-Shell=> ")
                 if level == rip:
-                    print("Insider threat detected")
+                    print("Invalidating session")
                     logger.write(
                         "Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + '\n')
                     import shell
@@ -239,7 +265,11 @@ class SystemCmd:
         if cmd == 'alter.list':
             readline.add_history(cmd)
             while True:
-                a = raw_input("whitelist or blacklist: ")
+                try:
+                    a = raw_input("whitelist or blacklist: ")
+                except KeyboardInterrupt:
+                    print "Reloading shell\n"
+                    import shell
                 if a == 'blacklist':
                     blcmd = raw_input("Cmd to Blacklist: ")
                     print("Blacklisting for this session => " + blcmd)
@@ -264,20 +294,27 @@ class SystemCmd:
         if cmd in "sh:":
             print "Recovering from error"
             import shell
-        elif cmd:
+        for i, elem in enumerate(cmdlist):
+            if cmd == elem:
+                try:
+                    print "\n"
+                except OSError:
+                    print "\n"
+        else:
             try:
                 error = sys(cmd)
                 errorseq = error > 0
             except a:
-                print "\n"
+                print "Shell bleed through\n"
                 import shell
-
                 print "\n"
             except OSError:
                 print "\n"
                 import shell
-
                 print "\n"
+            except IOError:
+                print "IO Error"
+                import shell
             except SystemError:
                 print "Unknown Error"
                 import shell
@@ -290,5 +327,11 @@ class SystemCmd:
             if errorseq:
                 print "Error Logged"
                 logger.write("Error: " + a + " @ " + timer + " By: " + getpass.getuser() + '\n')
-    if __name__ == __init__():
-        import shell
+if __name__ == '__main__':
+    try:
+        SystemCmd
+    except EOFError:
+        print "\n"
+        quit()
+    except NameError:
+        print "\n"
