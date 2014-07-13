@@ -10,6 +10,8 @@ from os import system as sys
 from subprocess import call
 import paramiko
 import yaml
+import shell
+import sys as backend
 from yaml import load as config
 
 
@@ -19,7 +21,10 @@ logger.write("Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuse
 
 class SystemCmd:
     def __init__(self):
-        __init__ = __name__
+        __init__ = '__name__'
+    def cmd(self):
+        self = raw_input('Secure-Shell=> ')
+        sys(self)
 
     blcnf = config(file('blacklist.yaml', 'r'))
     whcnf = config(file('whitelist.yaml', 'r'))
@@ -29,11 +34,11 @@ class SystemCmd:
     risk = level
     rip = 3
     srisk = rip
-    tab = readline.parse_and_bind('tab: complete')
-    readline.get_line_buffer()
-    a = readline.insert_text(cmdlist)
-    readline.set_startup_hook()
+    builtin = "echo >> /dev/null"
     while True:
+        tab = readline.parse_and_bind('tab: complete')
+        readline.insert_text(cmdlist)
+        readline.set_startup_hook()
         try:
             timer = time.asctime()
         except KeyboardInterrupt:
@@ -57,16 +62,9 @@ class SystemCmd:
             print "Exit"
         except SystemExit:
             print "Exit"
-        except a:
-            print "Recovering from error"
-            import shell
         try:
             tab = readline.parse_and_bind('tab: complete')
             readline.insert_text(cmdlist)
-            if cmd == '':
-                print "Error: blank command"
-                level = 0
-                import shell
         except NameError:
             while True:
                 print("Error reloading")
@@ -93,7 +91,7 @@ class SystemCmd:
                 level = risk
                 srisk = rip
                 if risk == rip:
-                    print "Policy threshold met"
+                    print "Fatal: Policy threshold met"
                     quit()
         if cmd == 'chdir':
             try:
@@ -101,6 +99,8 @@ class SystemCmd:
                 def chdir(self, cmd):
                     call("chdir", shell=True)
                 os.chdir(g)
+                cmd = builtin
+                import shell
             except a:
                 print "Parse issue"
                 import shell
@@ -123,34 +123,26 @@ class SystemCmd:
             logger.write("Whitelist cmd: " + cmd + " @ " + timer + " By: " + getpass.getuser() + '\n')
             logger.close()
         if cmd == 'risk':
-            while True:
                 print "Risk: ", level, "\n"
-                break
-                import shell
+                cmd = builtin
         if cmd == 'risk.reset':
-            while True:
                 print "Reseting Risk: "
                 print "Current Risk: ", level, "\n"
                 level = 0
                 print "New Risk: ", level, "\n"
                 logger.write("Risk reset: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
-                break
-                import shell
+                cmd = builtin
         if cmd == 'threshold':
-            while True:
                 print "Threshold: ", rip, "\n"
-                break
-                import shell
+                cmd = builtin
         if cmd == 'threshold.set':
-            while True:
                 th = raw_input("Threshold: ")
                 print "Current threshold: ", rip, "\n"
                 rip = th
                 print "New threshold: ", rip, "\n"
                 print("Reloading shell")
                 logger.write("Threshold set: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
-                break
-                import shell
+                cmd = builtin
         if cmd == 'ssh.shell':
             try:
                 client = paramiko.SSHClient()
@@ -211,7 +203,7 @@ class SystemCmd:
                 if level == rip:
                     print("Invalidating session")
                     logger.write(
-                        "Insider Threat Detected: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + '\n')
+                        "Fatal: Policy threshold met " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + '\n')
                     import shell
 
                     break
@@ -257,13 +249,48 @@ class SystemCmd:
                     outfile.close()
                 client.close()
         if cmd in 'print':
-            print(cmd)
+            print("{0}".format(cmd))
+            cmd = builtin
         if cmd == 'time.now':
             print(timer)
+            cmd = builtin
         if cmd == 'user.name':
             print getpass.getuser()
+            cmd = builtin
+        if cmd == 'overlay.import':
+            imp = raw_input("Import sash module: ")
+            ext = ".sash"
+            if not ext in imp:
+                print "Not SASH module"
+                cmd = builtin
+            if ext in imp:
+                sys("python {0}".format(imp))
+                cmd = builtin
+                import shell
+        if cmd == 'shell.script':
+            imp = raw_input("Import sash shell script: ")
+            ext = ".shell"
+            if not ext in imp:
+                print "Not SASH script"
+                cmd = builtin
+            if ext in imp:
+                sys("chmod u+x {0}".format(imp))
+                sys("./{0}".format(imp))
+                cmd = builtin
+            a = raw_input("Save as shell command [Y/n]: ")
+            if a == 'y':
+                if cmd == str(imp):
+                    sys("alias {0}=./{0}".format(imp))
+            if a == 'Y':
+                 if cmd == str(imp):
+                       sys("alias {0}=./{0}".format(imp))
+            if a == 'n':
+                import shell
+            if a == 'N':
+                import shell
         if cmd == 'alter.list':
             readline.add_history(cmd)
+            cmd = builtin
             while True:
                 try:
                     a = raw_input("whitelist or blacklist: ")
@@ -275,35 +302,29 @@ class SystemCmd:
                     print("Blacklisting for this session => " + blcmd)
                     d = [blcmd, blcnf]
                     blcnf = d
+                    cmd = builtin
                 if a == 'whitelist':
                     whcmd = raw_input("Cmd to whitelist: ")
                     print("whitelisting for this session => " + whcmd)
                     b = [whcmd, whcnf]
                     whcnf = b
-                break
-                shell
+                    cmd = builtin
         if cmd == 'policy.list':
             readline.add_history(cmd)
             print "Whitelist:", whcnf
             print "Blacklist:", blcnf
-            import shell
+            cmd = builtin
         if cmd == '':
             print "Blank command detected"
         if cmd in a:
             print "\n"
         if cmd in "sh:":
             print "Recovering from error"
-            import shell
-        for i, elem in enumerate(cmdlist):
-            if cmd == elem:
-                try:
-                    print "\n"
-                except OSError:
-                    print "\n"
-        else:
+        else :
             try:
                 error = sys(cmd)
                 errorseq = error > 0
+                import shell
             except a:
                 print "Shell bleed through\n"
                 import shell
@@ -321,9 +342,6 @@ class SystemCmd:
             except (KeyboardInterrupt, SystemExit):
                 print "exiting \n"
                 quit()
-            except systemCMD:
-                print "Unknown error"
-                import shell
             if errorseq:
                 print "Error Logged"
                 logger.write("Error: " + a + " @ " + timer + " By: " + getpass.getuser() + '\n')

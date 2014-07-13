@@ -1,0 +1,16 @@
+__author__ = 'gregorydisney'
+from shell import SystemCmd
+import getpass
+builtin = SystemCmd.builtin
+if SystemCmd.cmd == 'login.shell':
+    cmd = builtin
+while True:
+    cmd = SystemCmd.cmd
+if cmd == 'login.shell':
+        cmd = builtin
+        user = raw_input("User: ")
+        pwd = getpass.getpass()
+        if user == getpass.getuser():
+            print "user match"
+while True:
+    import shell

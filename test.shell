@@ -1,0 +1,3 @@
+echo "shell script test"
+printf "Test: shell.script"
+echo " => success\n"
