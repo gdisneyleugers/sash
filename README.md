@@ -32,6 +32,13 @@ to do session based alteration of policy:
         risk.reset: resets risk
         overlay.import: python style overlay module
         shell.script: sh style shell 
+
+builtin cmd:
+
+        user.name
+        time.now
+        chdir
+        print
 Any alteration of session policy results in logging.
 
 To access the policy driven ssh shell:
