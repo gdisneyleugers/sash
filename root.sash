@@ -1,0 +1,5 @@
+__author__ = 'gregorydisney'
+import os
+print "SASH Root Overlay"
+os.system("sudo -s")
+import shell

@@ -1,3 +1,10 @@
 echo "shell script test"
 printf "Test: shell.script"
 echo " => success\n"
+for i in {1..10}
+do
+printf "Counter: "
+echo $i
+done
+echo "\n"
+echo "Test: counter was successful"
