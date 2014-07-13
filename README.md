@@ -30,7 +30,8 @@ to do session based alteration of policy:
         threshold.set: sets threshold for whitelist.
         risk: shows current session threshold
         risk.reset: resets risk
-
+        overlay.import: python style overlay module
+        shell.script: sh style shell 
 Any alteration of session policy results in logging.
 
 To access the policy driven ssh shell:
