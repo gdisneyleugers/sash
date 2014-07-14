@@ -1,0 +1,48 @@
+from os import system as sys
+print "SASH Shell and Overlay Converter"
+cmd = raw_input("Convert2-Shell=> ")
+builtin = "echo >> /dev/null"
+if cmd == 'convert2.overlay':
+    try:
+        imp = raw_input("Import python module: ")
+        saveas = raw_input("Save as: ")
+    except (KeyboardInterrupt, SystemExit):
+        print "exiting \n"
+        quit()
+    next = ".sash"
+    ext = ".py"
+    if not next in saveas:
+     print "Can't save overlay as not SASH extension"
+    if next in saveas:
+     print "Saving"
+    if not ext in imp:
+        print "Not python module"
+        cmd = builtin
+    if ext in imp:
+        sys("cp " + imp + " " + saveas)
+        sys("python {0}".format(saveas))
+        cmd = builtin
+
+if cmd == 'convert2.shell':
+    try:
+        imp = raw_input("Import shell script: ")
+        saveas = raw_input("Save as: ")
+    except (KeyboardInterrupt, SystemExit):
+        print "exiting \n"
+        quit()
+    next = ".shell"
+    ext = ".sh"
+    if not next in saveas:
+     print "Can't save overlay as not SASH shell script"
+    if not ext in imp:
+        print "Not SASH script"
+        cmd = builtin
+        import shell
+    if ext in imp:
+        sys("cp " + imp + " " + saveas)
+        sys("chmod u+x {0}".format(saveas))
+        sys("./{0}".format(saveas))
+        cmd = builtin
+
+else:
+    quit()

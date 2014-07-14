@@ -1,0 +1,112 @@
+__author__ = 'gdisney'
+import os
+import paramiko
+import yaml
+import time
+import getpass
+import socket
+import pty
+
+from yaml import load as config
+logger = file('shell.log', 'a')
+logger.write("Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + "\n")
+level = 0
+risk = level
+rip = 3
+srisk = rip
+builtin = "echo >> /dev/null"
+tty = pty.openpty()
+pty = pty.fork()
+print "SSH Shell SASH Overlay\n"
+print "Run ssh.shell to access shell\n"
+print "Run any other command to return to original shell\n"
+cmd = raw_input("SSH-Shell=> ")
+blcnf = config(file('blacklist.yaml', 'r'))
+whcnf = config(file('whitelist.yaml', 'r'))
+if cmd == 'ssh.shell':
+    client = paramiko.SSHClient()
+    host = raw_input("Host: ")
+    SSH_PORT = input("Port: ")
+    usr = raw_input("User: ")
+    if not usr:
+        user = getpass.getuser()
+    pwd = getpass.getpass("Password: ")
+    client.load_system_host_keys()
+    print "Connecting to " + usr + "@" + host
+    logger.write(
+        "SSH Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
+    while True:
+        level = 0
+        rip = 3
+        level = risk
+        timer = time.asctime()
+        try:
+            client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            cc = client.connect(host, port=SSH_PORT, username=usr, password=pwd)
+        except paramiko.ssh_exception.AuthenticationException:
+            print "Auth Error"
+            logger.write("Auth Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+            import shell
+        except paramiko.ssh_exception.SSHException:
+            print "Protocol Error"
+            logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+            import shell
+        except paramiko.transport:
+            print "General Error"
+            logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+            import shell
+        except socket.error:
+            print "Socket Error"
+            logger.write("Socket Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+            import shell
+        cmd = raw_input("Secure-SSH-Shell=> ")
+
+        for i, elem in enumerate(blcnf):
+            if cmd in elem:
+                print("Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser())
+                logger.write("blacklist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                level = 3
+                quit()
+                logger.close()
+        for i, elem in enumerate(whcnf):
+            if cmd in elem:
+                print("Allowed but logged: " + elem + "\n" + timer + " By: " + getpass.getuser() + '\n')
+                logger.write("Whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                risk = level + 1
+                srisk = (int(rip) - int(risk))
+                print("Warning: "
+                "{0} commands left before whitelist policy invalidates session".format(str(srisk))
+                )
+                print("Warning: "
+                    "Risk has evalated to {0} ".format(str(risk))
+                )
+                if srisk <= 0:
+                    print "Fatal: Policy threshold met"
+                    logger.write("Threshold level: " + str(srisk) + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                    quit()
+                level = risk
+                srisk = rip
+
+        if level == rip:
+            print "\n"
+            print("Warning: Whitelist policy invalidating session\n")
+            logger.write("Whitelist policy invalidating session: " + " @ " + timer + " By: " + getpass.getuser() + '\n')
+            quit()
+            logger.close()
+            break
+
+        if cmd == 'exit':
+            print("Exiting\n")
+            logger.write("Exiting: " + cmd + " @ " + timer + " By: " + getpass.getuser() + '\n')
+            break
+        try:
+            stdin, stdout, stderr = client.exec_command(cmd)
+            a = stdout.readlines()
+            print ''.join(a)
+        except AttributeError:
+            print "Attribute Error"
+            import shell
+        client.close()
+        cmd = builtin
+else:
+    quit()

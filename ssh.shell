@@ -1,0 +1,10 @@
+echo "SSH Shell"
+printf "User: "
+read usr
+printf "Password: "
+read passwd
+printf "Host: "
+read host
+printf "Port: "
+read port
+ssh -p $port $usr@$host
