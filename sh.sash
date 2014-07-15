@@ -129,25 +129,6 @@ class SystemCmd:
             except OSError:
                 print "Dir Error"
                 import shell
-        if cmd == 'help':
-            print "overlay.import\n"
-            print "shell.script\n"
-            print "threshold\n"
-            print "threshold.set\n"
-            print "risk\n"
-            print "risk.reset\n"
-            print "alter.list\n"
-            print "policy.list\n"
-            print "overlay.list\n"
-            print "shell.list\n"
-            print "shell.stats\n"
-            cmd = builtin
-        if cmd == 'shell.stats':
-            print "Current Stats: "
-            print timer
-            sys('ps')
-            sys('stat')
-            cmd = builtin
         if cmd == 'exit':
             print("Exiting\n")
             quit()
@@ -184,14 +165,6 @@ class SystemCmd:
             cmd = builtin
         if cmd == 'user.name':
             print getpass.getuser()
-            cmd = builtin
-        if cmd == 'overlay.list':
-            print "Available Overlays: "
-            sys("ls *.sash")
-            cmd = builtin
-        if cmd == 'shell.list':
-            print "Available Shell Script: "
-            sys("ls *.shell")
             cmd = builtin
         if cmd == 'overlay.import':
             imp = raw_input("Import sash module: ")

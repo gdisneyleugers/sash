@@ -1,0 +1,106 @@
+__author__ = 'gregorydisney'
+import os
+import paramiko
+from scp import SCPClient
+import yaml
+import time
+import getpass
+import socket
+import pty
+from yaml import load as config
+
+logger = file('shell.log', 'a')
+logger.write("Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + "\n")
+level = 0
+risk = level
+rip = 3
+srisk = rip
+builtin = "echo >> /dev/null"
+tty = pty.openpty()
+pty = pty.fork()
+print "SCP Shell SASH Overlay\n"
+print "Run scp.shell to access shell\n"
+print "Run any other command to return to original shell\n"
+cmd = raw_input("SCP-Shell=> ")
+if cmd == 'scp.shell':
+    client = paramiko.SSHClient()
+    host = raw_input("Host: ")
+    SSH_PORT = input("Port: ")
+    usr = raw_input("User: ")
+    if not usr:
+        user = getpass.getuser()
+    pwd = getpass.getpass("Password: ")
+    client.load_system_host_keys()
+    print "Connecting to " + usr + "@" + host
+    logger.write(
+        "SCP Shell Started" + " @ " + time.asctime() + " By: " + getpass.getuser() + " as " + usr + "@" + host + "\n")
+    while True:
+        timer = time.asctime()
+        try:
+            client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            cc = client.connect(host, port=SSH_PORT, username=usr, password=pwd)
+        except paramiko.ssh_exception.AuthenticationException:
+            print "Auth Error"
+            logger.write("Auth Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+            import shell
+        except paramiko.ssh_exception.SSHException:
+            print "Protocol Error"
+            logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+            import shell
+        except paramiko.transport:
+            print "General Error"
+            logger.write("Protocol Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+            import shell
+        except socket.error:
+            print "Socket Error"
+            logger.write("Socket Error: " + " @ " + timer + " By: " + getpass.getuser() + usr + "@" + host + "\n")
+            import shell
+        cmd = raw_input("Secure-SCP-Shell=> ")
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        cc = client.connect(host, port=SSH_PORT, username=usr, password=pwd)
+        scp = SCPClient(client.get_transport())
+        if cmd == 'scp.get':
+            getter = raw_input("File to get: ")
+            blcnf = config(file('scpblacklist.yaml', 'r'))
+            whcnf = config(file('scpwhitelist.yaml', 'r'))
+            for i, elem in enumerate(blcnf):
+                if cmd in elem:
+                    print("Not Allowed cmd: " + elem + " @ " + timer + " By: " + getpass.getuser())
+                    logger.write("blacklist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                    level = 3
+                    quit()
+                logger.close()
+            for i, elem in enumerate(whcnf):
+                if cmd in elem:
+                    print("Allowed but logged: " + elem + "\n" + timer + " By: " + getpass.getuser() + '\n')
+                    logger.write("Whitelist cmd: " + elem + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                    risk = level + 1
+                    srisk = (int(rip) - int(risk))
+                    print("Warning: "
+                    "{0} commands left before whitelist policy invalidates session".format(str(srisk))
+                    )
+                    print("Warning: "
+                    "Risk has evalated to {0} ".format(str(risk))
+                    )
+                if srisk <= 0:
+                    print "Fatal: Policy threshold met"
+                    logger.write("Threshold level: " + str(srisk) + " @ " + timer + " By: " + getpass.getuser() + '\n')
+                    quit()
+                    level = risk
+                    srisk = rip
+            scp.get(getter,getter)
+            print "File: {0} successful downloased".format(getter)
+        if cmd == 'scp.put':
+            putter = raw_input("File to put: ")
+            scp.put(putter,putter)
+            print "File: {0} successful uploaded".format(putter)
+        if cmd == 'help':
+            cmd = 'scp.help'
+        if cmd == 'scp.help':
+            print "scp.get => Get file from host"
+            print "scp.put => Get file from host"
+        if cmd == 'exit':
+            print "Quiting"
+            quit()
+else:
+    quit()
